@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.body-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(255, 255, 255);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-image: url('./res/view-3d-film-reel.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.d-none {
+    display: none;
+}
+
+.firstPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.firstPage-header {
+    margin-bottom: 4rem;
+    color: white;
+}
+
+.firstPage-button {
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.questionContainer {
+    text-align: center;
+    color: white;
+}
