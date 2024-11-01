@@ -63,6 +63,7 @@ function displayQuestion(trivia) {
     // Visa frågan
     const questionElement = document.createElement("h2");
     questionElement.textContent = decodeHtmlEntities(trivia.question);
+    questionElement.classList.add("question");
     questionContainer.appendChild(questionElement);
     // Kombinera och blanda svaren
     const answers = [...trivia.incorrect_answers, trivia.correct_answer];
@@ -113,24 +114,29 @@ function decodeHtmlEntities(text) {
 function displayResult() {
     questionContainer.innerHTML = '';
     const resultElement = document.createElement("h2");
+    resultElement.classList.add("result-header");
     resultElement.textContent = `Du fick ${correctAnswersCount} av ${triviaQuestions.length} rätt!`;
     questionContainer.appendChild(resultElement);
     userAnswers.forEach(answer => {
-        const questionSummary = document.createElement("div");
+        const questionSummary = document.createElement("section");
         questionSummary.classList.add("question-summary");
         const questionText = document.createElement("p");
+        questionText.classList.add("result-question");
         questionText.textContent = `Fråga: ${decodeHtmlEntities(answer.question)}`; // Dekodera frågan
         questionSummary.appendChild(questionText);
         const userAnswerText = document.createElement("p");
+        userAnswerText.classList.add("result-question");
         userAnswerText.textContent = `Ditt svar: ${decodeHtmlEntities(answer.selectedAnswer)}`; // Dekodera användarens svar
         userAnswerText.style.color = answer.isCorrect ? "green" : "red";
         questionSummary.appendChild(userAnswerText);
         const correctAnswerText = document.createElement("p");
+        correctAnswerText.classList.add("result-question");
         correctAnswerText.textContent = `Rätt svar: ${decodeHtmlEntities(answer.correctAnswer)}`; // Dekodera rätt svar
         questionSummary.appendChild(correctAnswerText);
         questionContainer.appendChild(questionSummary);
     });
     const restartButton = document.createElement("button");
+    restartButton.classList.add("restart-button");
     restartButton.textContent = "Starta om";
     restartButton.addEventListener("click", () => {
         sessionStorage.clear();
