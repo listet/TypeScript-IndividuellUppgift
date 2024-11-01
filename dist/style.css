@@ -13,10 +13,11 @@
     width: 100vw;
     background-color: rgb(255, 255, 255);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-image: url('./res/view-3d-film-reel.jpg');
+    background-color: #190039;
+    /* background-image: url('./res/view-3d-film-reel.jpg');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
 }
 
 .d-none {
@@ -28,20 +29,55 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: hsla(280, 100%, 24%, 0.767);
+    margin: 2rem;
+    border-radius: 1rem;
+}
+
+.quizpic {
+    height: 50vh;
+    scale: 1;
+    max-width: 1000px;
 }
 
 .firstPage-header {
     margin-bottom: 4rem;
-    color: white;
+    color: #ffe75c;
+    margin: 1rem;
+    font-size: 1.5rem;
 }
 
 .firstPage-button {
     padding: 1rem;
     border-radius: 10px;
-    background-color: rgb(255, 255, 255);
+}
+
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.category-button {
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 1rem;
+    color: white;
+    background-color: rgb(13, 195, 198);
+    font-weight: 700;
+}
+
+.category-button:hover,
+.category-button:active {
+    scale: 1.1;
+    cursor: pointer;
 }
 
 .questionContainer {
-    text-align: center;
     color: white;
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center; */
 }

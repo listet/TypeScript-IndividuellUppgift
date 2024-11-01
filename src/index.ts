@@ -29,6 +29,27 @@ categoryButtons.forEach(button => {
     });
 });
 
+// async function fetchCategories() {
+//     try {
+//         const response = await fetch('https://opentdb.com/api_category.php');
+//         if (!response.ok) {
+//             throw new Error("Någonting gick snett!");
+//         }
+//         const data = await response.json();
+//         console.log(data); // Logga hela data-objektet för att se strukturen
+
+//         // Logga varje kategori med dess ID
+//         data.trivia_categories.forEach(category => {
+//             console.log(`ID: ${category.id}, Namn: ${category.name}`);
+//         });
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
+
+// // Kalla funktionen för att hämta och logga kategorier
+// fetchCategories();
+
 async function fetchTriviaAPI(category: string): Promise<void> {
     try {
         const response: Response = await fetch(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=medium&type=multiple`);
