@@ -9,15 +9,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100vw;
+    /* width: 100vw; */
+    margin: auto;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: #190039;
     overflow-x: hidden;
 }
 
-.d-none {
+/* .d-none {
     display: none;
-}
+} */
 
 .firstPage {
     display: flex;
@@ -32,7 +33,6 @@
 .quizpic {
     height: 50vh;
     scale: 1;
-    max-width: 1000px;
 }
 
 .firstPage-header {
@@ -63,16 +63,13 @@
     background-color: rgb(13, 195, 198);
     font-weight: 700;
     cursor: pointer;
+    border: none;
 }
 
 .category-button:hover,
 .category-button:active {
     scale: 1.1;
     cursor: pointer;
-}
-
-.quizSection {
-    /* max-width: 70vw; */
 }
 
 .questionContainer {
@@ -95,8 +92,9 @@
     padding: 0.7rem;
     margin: 0.7rem;
     border-radius: 1rem;
-    color: white;
-    background-color: rgb(7, 139, 141);
+    color: #383e42;
+    font-weight: 600;
+    background-color: rgb(255, 254, 216);
     cursor: pointer;
     border: none;
 }
@@ -105,11 +103,13 @@
 .answer-button:active {
     scale: 1.1;
     cursor: pointer;
-    background-color: rgba(7, 139, 141, 0.614);
+    background-color: rgba(255, 254, 216, 0.818);
 
 }
 
-.result-header {}
+.result-header {
+    margin-top: 1rem;
+}
 
 .question-summary {
     text-align: center;
@@ -128,10 +128,21 @@
     border-radius: 1rem;
     font-weight: 700;
     padding: 1rem 3rem;
+    cursor: pointer;
 }
 
-@media screen and (max-width:550px) {
-    .body-wrapper {
-        padding-top: 5rem;
+.restart-button:hover,
+.restart-button:active {
+    scale: 1.1;
+    cursor: pointer;
+    background-color: rgb(227, 227, 227);
+
+}
+
+@media screen and (max-width:450px) {
+
+    .quizpic {
+        height: 40vh;
+        scale: 1;
     }
 }
