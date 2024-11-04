@@ -21,6 +21,7 @@ let triviaQuestions: TriviaInfo[] = []; //Array för att lagra triviafrågor
 let currentQuestionIndex = 0; //Håller koll på nuvarande frågeindex
 let correctAnswersCount = 0; //Räknar antalet korrekta svar
 let userAnswers: AnswerInfo[] = []; //Array för användarens resultat
+let areResultsVisible = false; // Flagga för att hålla reda på om resultaten är synliga
 
 //Funktion som sätter upp triviafrågor 
 function setupTrivia(): void {
@@ -187,6 +188,17 @@ function decodeHtmlEntities(text: string): string {
 
 //Funktion som visar tidigare resultat
 function showPreviousResults(): void {
+    const questionContainer = document.getElementById("questionContainer") as HTMLElement;
+
+    // Om resultaten redan visas, dölja dem
+    if (areResultsVisible) {
+        const previousResultsContainer = document.querySelector(".previousResultsContainer") as HTMLElement;
+        if (previousResultsContainer) {
+            previousResultsContainer.remove(); // Ta bort tidigare resultat
+        }
+        areResultsVisible = false; // Uppdatera flaggan
+        return; // Avsluta funktionen
+    }
     const previousResultsContainer = document.createElement("section") as HTMLElement;
     previousResultsContainer.classList.add("previousResultsContainer");
     const previousResults = JSON.parse(sessionStorage.getItem('triviaResults') || '[]');
@@ -209,6 +221,6 @@ function showPreviousResults(): void {
         previousResultsContainer.appendChild(resultSummary);
     });
 
-    const questionContainer = document.getElementById("questionContainer") as HTMLElement;
     questionContainer.appendChild(previousResultsContainer);
+    areResultsVisible = true;
 }
