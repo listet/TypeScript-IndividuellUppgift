@@ -152,7 +152,7 @@ function displayResult(): void {
 
     //Skapar knapp som kan toggla för att visa tidigare resultat
     const showPreviousResultsButton = document.createElement("button");
-    showPreviousResultsButton.id = "showResultsButton"; // Ge knappen ett id för att kunna referera till den senare
+    showPreviousResultsButton.id = "showResultsButton";
     showPreviousResultsButton.textContent = "Visa tidigare resultat";
     showPreviousResultsButton.addEventListener("click", showPreviousResults);
     questionContainer.appendChild(showPreviousResultsButton);
@@ -194,10 +194,10 @@ function showPreviousResults(): void {
     if (areResultsVisible) {
         const previousResultsContainer = document.querySelector(".previousResultsContainer") as HTMLElement;
         if (previousResultsContainer) {
-            previousResultsContainer.remove(); // Ta bort tidigare resultat
+            previousResultsContainer.remove();
         }
         areResultsVisible = false; // Uppdatera flaggan
-        return; // Avsluta funktionen
+        return;
     }
     const previousResultsContainer = document.createElement("section") as HTMLElement;
     previousResultsContainer.classList.add("previousResultsContainer");

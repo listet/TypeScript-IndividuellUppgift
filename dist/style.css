@@ -16,10 +16,6 @@
     overflow-x: hidden;
 }
 
-/* .d-none {
-    display: none;
-} */
-
 .firstPage {
     display: flex;
     flex-direction: column;
@@ -134,9 +130,29 @@
 .restart-button:hover,
 .restart-button:active {
     scale: 1.1;
-    cursor: pointer;
     background-color: rgb(227, 227, 227);
+}
 
+#showResultsButton {
+    padding: 1rem 3rem;
+    font-weight: 700;
+    border-radius: 1rem;
+    margin: 1rem;
+    cursor: pointer;
+    background-color: lightblue;
+}
+
+#showResultsButton:hover,
+#showResultsButton:active {
+    scale: 1.1;
+    background-color: rgba(173, 216, 230, 0.684);
+}
+
+.previousResultsContainer {
+    background-color: hsla(0, 0%, 100%, 0.141);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
 }
 
 @media screen and (max-width:450px) {
