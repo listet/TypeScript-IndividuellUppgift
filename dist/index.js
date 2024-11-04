@@ -12,14 +12,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 window.addEventListener('load', () => {
     setupTrivia();
 });
-//Array för att lagra triviafrågor
-let triviaQuestions = [];
-//Håller koll på nuvarande frågeindex
-let currentQuestionIndex = 0;
-//Räknar antalet korrekta svar
-let correctAnswersCount = 0;
-//Array för användarens resultat
-let userAnswers = [];
+let triviaQuestions = []; //Array för att lagra triviafrågor
+let currentQuestionIndex = 0; //Håller koll på nuvarande frågeindex
+let correctAnswersCount = 0; //Räknar antalet korrekta svar
+let userAnswers = []; //Array för användarens resultat
 //Funktion som sätter upp triviafrågor 
 function setupTrivia() {
     //Här används NodeListOf eftersom querySelectorAll returnerar en NodeList av element och är mer 
@@ -34,6 +30,8 @@ function setupTrivia() {
             if (selectedCategory) {
                 fetchTriviaAPI(selectedCategory);
                 firstPageSection.style.display = "none";
+                categoryButtons.forEach(btn => btn.classList.remove("active"));
+                button.classList.add("active");
             }
         });
     });
@@ -105,6 +103,13 @@ function displayResult() {
     resultElement.classList.add("result-header");
     resultElement.textContent = `Du fick ${correctAnswersCount} av ${triviaQuestions.length} rätt!`;
     questionContainer.appendChild(resultElement);
+    //För att se tidigare resultat
+    const selectedCategoryButton = document.querySelector(".category-button.active");
+    const selectedCategoryName = selectedCategoryButton ? selectedCategoryButton.textContent || "Ingen kategori" : "Ingen kategori";
+    // Spara användarens resultat i sessionStorage (kategori och antal rätt)
+    const previousResults = JSON.parse(sessionStorage.getItem('triviaResults') || '[]');
+    previousResults.push({ category: selectedCategoryName, correctAnswersCount, date: new Date().toLocaleString() });
+    sessionStorage.setItem('triviaResults', JSON.stringify(previousResults));
     //Visar detaljer för varje fråga
     userAnswers.forEach(answer => {
         const questionSummary = document.createElement("section");
@@ -129,12 +134,17 @@ function displayResult() {
     restartButton.textContent = "Starta om";
     restartButton.addEventListener("click", resetQuiz);
     questionContainer.appendChild(restartButton);
+    //Skapar knapp som kan toggla för att visa tidigare resultat
+    const showPreviousResultsButton = document.createElement("button");
+    showPreviousResultsButton.id = "showResultsButton"; // Ge knappen ett id för att kunna referera till den senare
+    showPreviousResultsButton.textContent = "Visa tidigare resultat";
+    showPreviousResultsButton.addEventListener("click", showPreviousResults);
+    questionContainer.appendChild(showPreviousResultsButton);
 }
 //Funktion för att starta om Quiz
 function resetQuiz() {
     const questionContainer = document.getElementById("questionContainer");
     const firstPageSection = document.querySelector(".firstPage");
-    sessionStorage.clear();
     correctAnswersCount = 0;
     userAnswers = [];
     currentQuestionIndex = 0;
@@ -152,4 +162,25 @@ function shuffleArray(array) {
 function decodeHtmlEntities(text) {
     const parser = new DOMParser();
     return parser.parseFromString(text, "text/html").documentElement.textContent || text;
+}
+//Funktion som visar tidigare resultat
+function showPreviousResults() {
+    const previousResultsContainer = document.createElement("section");
+    previousResultsContainer.classList.add("previousResultsContainer");
+    const previousResults = JSON.parse(sessionStorage.getItem('triviaResults') || '[]');
+    previousResultsContainer.innerHTML = "<h2>Tidigare resultat:</h2>";
+    previousResults.forEach((result, index) => {
+        const resultSummary = document.createElement("div");
+        resultSummary.classList.add("result-summary");
+        resultSummary.innerHTML = `<h3>Resultat ${index + 1}</h3>`;
+        const categoryText = document.createElement("p");
+        categoryText.textContent = `Kategori: ${result.category}`;
+        resultSummary.appendChild(categoryText);
+        const correctAnswersText = document.createElement("p");
+        correctAnswersText.textContent = `Antal rätt: ${result.correctAnswersCount}`;
+        resultSummary.appendChild(correctAnswersText);
+        previousResultsContainer.appendChild(resultSummary);
+    });
+    const questionContainer = document.getElementById("questionContainer");
+    questionContainer.appendChild(previousResultsContainer);
 }
