@@ -155,6 +155,10 @@
     margin-bottom: 2rem;
 }
 
+.result-summary {
+    margin: 0.5rem;
+}
+
 @media screen and (max-width:450px) {
 
     .quizpic {

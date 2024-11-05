@@ -45,6 +45,8 @@ function fetchTriviaAPI(category) {
             if (!response.ok)
                 throw new Error("Någonting gick snett!");
             const data = yield response.json();
+            // const data = await response.json();
+            console.log(data);
             triviaQuestions = data.results;
             currentQuestionIndex = 0;
             //Kallar på funktionen displayQuestion med de hämtade frågorna samt håller koll på index med start från 0
@@ -109,7 +111,7 @@ function displayResult() {
     const selectedCategoryName = selectedCategoryButton ? selectedCategoryButton.textContent || "Ingen kategori" : "Ingen kategori";
     // Spara användarens resultat i sessionStorage (kategori och antal rätt)
     const previousResults = JSON.parse(sessionStorage.getItem('triviaResults') || '[]');
-    previousResults.push({ category: selectedCategoryName, correctAnswersCount, date: new Date().toLocaleString() });
+    previousResults.push({ category: selectedCategoryName, correctAnswersCount });
     sessionStorage.setItem('triviaResults', JSON.stringify(previousResults));
     //Visar detaljer för varje fråga
     userAnswers.forEach(answer => {
@@ -137,7 +139,7 @@ function displayResult() {
     questionContainer.appendChild(restartButton);
     //Skapar knapp som kan toggla för att visa tidigare resultat
     const showPreviousResultsButton = document.createElement("button");
-    showPreviousResultsButton.id = "showResultsButton"; // Ge knappen ett id för att kunna referera till den senare
+    showPreviousResultsButton.id = "showResultsButton";
     showPreviousResultsButton.textContent = "Visa tidigare resultat";
     showPreviousResultsButton.addEventListener("click", showPreviousResults);
     questionContainer.appendChild(showPreviousResultsButton);
@@ -171,19 +173,19 @@ function showPreviousResults() {
     if (areResultsVisible) {
         const previousResultsContainer = document.querySelector(".previousResultsContainer");
         if (previousResultsContainer) {
-            previousResultsContainer.remove(); // Ta bort tidigare resultat
+            previousResultsContainer.remove();
         }
         areResultsVisible = false; // Uppdatera flaggan
-        return; // Avsluta funktionen
+        return;
     }
     const previousResultsContainer = document.createElement("section");
     previousResultsContainer.classList.add("previousResultsContainer");
     const previousResults = JSON.parse(sessionStorage.getItem('triviaResults') || '[]');
-    previousResultsContainer.innerHTML = "<h2>Tidigare resultat:</h2>";
+    previousResultsContainer.innerHTML = "<h3>Tidigare resultat:</h3>";
     previousResults.forEach((result, index) => {
-        const resultSummary = document.createElement("div");
+        const resultSummary = document.createElement("section");
         resultSummary.classList.add("result-summary");
-        resultSummary.innerHTML = `<h3>Resultat ${index + 1}</h3>`;
+        resultSummary.innerHTML = `<h4>Resultat ${index + 1}</h4>`;
         const categoryText = document.createElement("p");
         categoryText.textContent = `Kategori: ${result.category}`;
         resultSummary.appendChild(categoryText);

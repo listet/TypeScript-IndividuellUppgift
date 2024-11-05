@@ -1,4 +1,8 @@
 //Interfaces
+interface TriviaResponseType {
+    results: TriviaInfo[];
+}
+
 interface TriviaInfo {
     question: string,
     correct_answer: string;
@@ -10,6 +14,17 @@ interface AnswerInfo {
     selectedAnswer: string;
     correctAnswer: string;
     isCorrect: boolean;
+}
+
+interface PreviousResult {
+    category: string;
+    correctAnswersCount: number;
+
+}
+
+interface TriviaResults {
+    category: string;
+    correctAnswersCount: number;
 }
 
 //Laddar upp sidan
@@ -48,9 +63,11 @@ function setupTrivia(): void {
 //Funktion som hämtar API
 async function fetchTriviaAPI(category: string): Promise<void> {
     try {
-        const response = await fetch(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=medium&type=multiple`);
+        const response: Response = await fetch(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=medium&type=multiple`);
         if (!response.ok) throw new Error("Någonting gick snett!");
-        const data = await response.json();
+        const data: TriviaResponseType = await response.json();
+        // const data = await response.json();
+        console.log(data)
         triviaQuestions = data.results;
         currentQuestionIndex = 0;
         //Kallar på funktionen displayQuestion med de hämtade frågorna samt håller koll på index med start från 0
@@ -72,7 +89,7 @@ function displayQuestion(trivia: TriviaInfo): void {
     questionContainer.appendChild(questionElement);
 
     //Skapar svarsalternativ och blandar som med hjälp av funktion ShuffleArray
-    const answers = [...trivia.incorrect_answers, trivia.correct_answer];
+    const answers: string[] = [...trivia.incorrect_answers, trivia.correct_answer];
     shuffleArray(answers);
 
     //Skapar en knapp för varje svarsalternativ
@@ -120,8 +137,8 @@ function displayResult(): void {
     const selectedCategoryName = selectedCategoryButton ? selectedCategoryButton.textContent || "Ingen kategori" : "Ingen kategori";
 
     // Spara användarens resultat i sessionStorage (kategori och antal rätt)
-    const previousResults = JSON.parse(sessionStorage.getItem('triviaResults') || '[]');
-    previousResults.push({ category: selectedCategoryName, correctAnswersCount, date: new Date().toLocaleString() });
+    const previousResults: PreviousResult[] = JSON.parse(sessionStorage.getItem('triviaResults') || '[]');
+    previousResults.push({ category: selectedCategoryName, correctAnswersCount });
     sessionStorage.setItem('triviaResults', JSON.stringify(previousResults));
 
     //Visar detaljer för varje fråga
@@ -156,7 +173,6 @@ function displayResult(): void {
     showPreviousResultsButton.textContent = "Visa tidigare resultat";
     showPreviousResultsButton.addEventListener("click", showPreviousResults);
     questionContainer.appendChild(showPreviousResultsButton);
-
 }
 
 //Funktion för att starta om Quiz
@@ -173,7 +189,7 @@ function resetQuiz(): void {
 }
 
 //Funktion för att shuffla Array
-function shuffleArray(array: any[]): void {
+function shuffleArray(array: string[]): void {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -201,14 +217,15 @@ function showPreviousResults(): void {
     }
     const previousResultsContainer = document.createElement("section") as HTMLElement;
     previousResultsContainer.classList.add("previousResultsContainer");
-    const previousResults = JSON.parse(sessionStorage.getItem('triviaResults') || '[]');
 
-    previousResultsContainer.innerHTML = "<h2>Tidigare resultat:</h2>";
+    const previousResults: PreviousResult[] = JSON.parse(sessionStorage.getItem('triviaResults') || '[]');
 
-    previousResults.forEach((result: { category: string; correctAnswersCount: number }, index: number) => {
-        const resultSummary = document.createElement("div");
+    previousResultsContainer.innerHTML = "<h3>Tidigare resultat:</h3>";
+
+    previousResults.forEach((result: PreviousResult, index: number) => {
+        const resultSummary = document.createElement("section");
         resultSummary.classList.add("result-summary");
-        resultSummary.innerHTML = `<h3>Resultat ${index + 1}</h3>`;
+        resultSummary.innerHTML = `<h4>Resultat ${index + 1}</h4>`;
 
         const categoryText = document.createElement("p");
         categoryText.textContent = `Kategori: ${result.category}`;
