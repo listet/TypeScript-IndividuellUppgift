@@ -3,9 +3,9 @@
         "target": "ES6",
         "module": "ES6",
         "outDir": "./dist",
-        "strict": true,
-        "noUnusedLocals": true,
-        "noImplicitAny": true // Generera fel om det finns något som inte har en typ
+        "strict": true, //För striktare typ-kontroll
+        "noUnusedLocals": true, //varnar om variabler är deklarerade men inte används
+        // "noImplicitAny": true  / ingår i strict
     },
     "include": [
         "./src"

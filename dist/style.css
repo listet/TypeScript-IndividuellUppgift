@@ -82,6 +82,7 @@
 .question {
     text-align: center;
     margin: 1rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .answer-button {
@@ -104,7 +105,8 @@
 }
 
 .result-header {
-    margin-top: 1rem;
+    margin: 1rem 2rem;
+    text-align: center;
 }
 
 .question-summary {
@@ -115,7 +117,7 @@
 }
 
 .result-question {
-    padding: 0.2rem;
+    margin: 0.4rem;
 }
 
 .restart-button {
@@ -149,7 +151,7 @@
 }
 
 .previousResultsContainer {
-    background-color: hsla(0, 0%, 100%, 0.141);
+    background-color: #1900398e;
     padding: 1rem;
     border-radius: 1rem;
     margin-bottom: 2rem;
