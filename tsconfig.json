@@ -6,6 +6,7 @@
         "strict": true, //För striktare typ-kontroll
         "noUnusedLocals": true, //varnar om variabler är deklarerade men inte används
         // "noImplicitAny": true  / ingår i strict
+        "forceConsistentCasingInFileNames": true //säkerställer att filnamn är konsekventa utifrån stora och små bokstäver
     },
     "include": [
         "./src"

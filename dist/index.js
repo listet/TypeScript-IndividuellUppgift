@@ -134,10 +134,10 @@ function displayResult() {
     showPreviousResultsButton.textContent = "Show previous results";
     showPreviousResultsButton.addEventListener("click", showPreviousResults);
     questionContainer.appendChild(showPreviousResultsButton);
-    //Tar fram vald kategori som ska lagras i sessionstorage
+    //Hämtar den valda kategoriknappen som är aktiv inför lagring i sessionstorage
     const selectedCategoryButton = document.querySelector(".category-button.active");
     const selectedCategoryName = selectedCategoryButton ? selectedCategoryButton.textContent || "no category" : "no category";
-    // Spara användarens resultat i sessionStorage (kategori och antal rätt svar)
+    // Hämtar och spara användarens resultat i sessionStorage (kategori och antal rätt svar)
     const previousResults = JSON.parse(sessionStorage.getItem('triviaResults') || '[]');
     previousResults.push({ category: selectedCategoryName, correctAnswersCount });
     sessionStorage.setItem('triviaResults', JSON.stringify(previousResults));

@@ -10,7 +10,7 @@ let correctAnswersCount = 0; //Räknar antalet korrekta svar
 let userAnswers: AnswerInfo[] = []; //Array för användarens resultat
 let areResultsVisible = false; // Flagga för att hålla reda på om resultaten är synliga
 
-//Funktion som sätter upp triviafrågor 
+//Funktion som sätter upp trivia 
 function setupTrivia(): void {
     //Här används NodeListOf eftersom querySelectorAll returnerar en NodeList av element och är mer effektiv när man inte behöver fullständig array-funktionalitet
     const categoryButtons = document.querySelectorAll(".category-button") as NodeListOf<HTMLElement>;
@@ -61,7 +61,7 @@ function displayQuestion(trivia: TriviaInfo): void {
     questionElement.classList.add("question");
     questionContainer.appendChild(questionElement);
 
-    //Skapar svarsalternativ och blandar som med hjälp av funktion ShuffleArray
+    //Skapar svarsalternativ och blandar dom med hjälp av funktion ShuffleArray
     const answers: string[] = [...trivia.incorrect_answers, trivia.correct_answer];
     shuffleArray(answers);
 
@@ -137,11 +137,11 @@ function displayResult(): void {
     showPreviousResultsButton.addEventListener("click", showPreviousResults);
     questionContainer.appendChild(showPreviousResultsButton);
 
-    //Tar fram vald kategori som ska lagras i sessionstorage
+    //Hämtar den valda kategoriknappen som är aktiv - inför lagring i sessionstorage
     const selectedCategoryButton = document.querySelector(".category-button.active") as HTMLButtonElement;
     const selectedCategoryName: string = selectedCategoryButton ? selectedCategoryButton.textContent || "no category" : "no category";
 
-    // Spara användarens resultat i sessionStorage (kategori och antal rätt svar)
+    // Hämtar och spara användarens resultat i sessionStorage (kategori och antal rätt svar)
     const previousResults: PreviousResult[] = JSON.parse(sessionStorage.getItem('triviaResults') || '[]');
     previousResults.push({ category: selectedCategoryName, correctAnswersCount });
     sessionStorage.setItem('triviaResults', JSON.stringify(previousResults));
