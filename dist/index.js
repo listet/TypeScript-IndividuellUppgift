@@ -15,7 +15,7 @@ let currentQuestionIndex = 0; //Håller koll på nuvarande frågeindex
 let correctAnswersCount = 0; //Räknar antalet korrekta svar
 let userAnswers = []; //Array för användarens resultat
 let areResultsVisible = false; // Flagga för att hålla reda på om resultaten är synliga
-//Funktion som sätter upp triviafrågor 
+//Funktion som sätter upp trivia 
 function setupTrivia() {
     //Här används NodeListOf eftersom querySelectorAll returnerar en NodeList av element och är mer effektiv när man inte behöver fullständig array-funktionalitet
     const categoryButtons = document.querySelectorAll(".category-button");
@@ -64,7 +64,7 @@ function displayQuestion(trivia) {
     questionElement.textContent = decodeHtmlEntities(trivia.question);
     questionElement.classList.add("question");
     questionContainer.appendChild(questionElement);
-    //Skapar svarsalternativ och blandar som med hjälp av funktion ShuffleArray
+    //Skapar svarsalternativ och blandar dom med hjälp av funktion ShuffleArray
     const answers = [...trivia.incorrect_answers, trivia.correct_answer];
     shuffleArray(answers);
     //Skapar en knapp för varje svarsalternativ
@@ -134,7 +134,7 @@ function displayResult() {
     showPreviousResultsButton.textContent = "Show previous results";
     showPreviousResultsButton.addEventListener("click", showPreviousResults);
     questionContainer.appendChild(showPreviousResultsButton);
-    //Hämtar den valda kategoriknappen som är aktiv inför lagring i sessionstorage
+    //Hämtar den valda kategoriknappen som är aktiv - inför lagring i sessionstorage
     const selectedCategoryButton = document.querySelector(".category-button.active");
     const selectedCategoryName = selectedCategoryButton ? selectedCategoryButton.textContent || "no category" : "no category";
     // Hämtar och spara användarens resultat i sessionStorage (kategori och antal rätt svar)
